@@ -1,0 +1,5 @@
+actor/perf/max_memory_allocated_gb:39.2972
+timing_s/step:410.0572
+perf/throughput:87.646
+critic/rewards/mean:-0.8556
+training/rollout_probs_diff_mean:0.0237
