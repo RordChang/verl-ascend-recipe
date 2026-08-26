@@ -12,10 +12,12 @@ MEMORY_KEY = "actor/perf/max_memory_allocated_gb"
 PERF_KEYS = ["perf/throughput", "timing_s/step"]
 ACC_KEYS = ["critic/rewards/mean", "training/rollout_probs_diff_mean"]
 
-# ==================== 正则（修复：兼容 np.float64(xxx) 格式） ====================
+# ==================== 正则（兼容科学计数法和 np.float64(xxx) 格式） ====================
 STEP_PATTERN = re.compile(r"step:(\d+)")
-# 匹配两种格式：key:np.float64(123.45)  或 key:-123.45
-METRIC_PATTERN = re.compile(r"([\w/]+):(?:np\.float64\()?([-\d\.]+)(?:\))?")
+# 匹配整数、小数和科学计数法，例如 -123.45、1e-5、-2.3E+4
+NUMBER_PATTERN = r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
+# 匹配两种格式：key:np.float64(1e-5)  或 key:-2.3E+4
+METRIC_PATTERN = re.compile(rf"([\w/]+):(?:np\.float64\()?({NUMBER_PATTERN})(?:\))?")
 
 
 # ==================== 1. 解析日志文件 ====================
@@ -85,7 +87,7 @@ def parse_base(base_path):
             k_part, v_str = line.split(":", 1)
             k = k_part.strip()
             # 基线文件如果也存在np.float64格式一并兼容处理
-            num_match = re.search(r"(?:np\.float64\()?([-\d\.]+)(?:\))?", v_str)
+            num_match = re.search(rf"(?:np\.float64\()?({NUMBER_PATTERN})(?:\))?", v_str)
             if not num_match:
                 continue
             num_str = num_match.group(1)
