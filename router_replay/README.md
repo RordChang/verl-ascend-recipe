@@ -164,7 +164,7 @@ generation throughput 按非 aborted response token 数除以生成阶段耗时�
 ## 6. 复现证据与验收结论
 
 100-step 训练指标日志：
-[Qwen3-30B-A3B R3 training metric log](https://gist.githubusercontent.com/RordChang/77115831f2b245d33edbe22648fe9212/raw/30a18e4cabd33b1dbf8d6f5e6efbc9f6ac39a7e2/training_100step.log)
+[Qwen3-30B-A3B R3 training metric log](https://gist.githubusercontent.com/RordChang/77115831f2b245d33edbe22648fe9212/raw/training_100step.log)
 
 | Issue #25 验收项 | 本次结果 |
 | --- | --- |
