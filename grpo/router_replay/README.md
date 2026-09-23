@@ -19,7 +19,7 @@
 | Rollout 后端 | vLLM-Ascend |
 | 验证平台 | Atlas 800T A2，4 x Ascend 910B |
 | 训练规模 | 100 global steps |
-| 运行脚本 | `router_replay/run_qwen3_30b_a3b_megatron_npu.sh` |
+| 运行脚本 | `grpo/router_replay/run_qwen3_30b_a3b_megatron_npu.sh` |
 
 ## 2. 适配方案
 
@@ -107,7 +107,7 @@ python3 examples/data_preprocess/gsm8k.py \
 安装 `REQUIRED_VERL.txt` 记录的 verl revision：
 
 ```bash
-./install_verl.sh --recipe router_replay --method git --dest /path/to/verl --yes
+./install_verl.sh --recipe grpo/router_replay --method git --dest /path/to/verl --yes
 ```
 
 启动 4 NPU、100-step 训练：
@@ -119,7 +119,7 @@ VAL_FILE=/path/to/data/gsm8k/test.parquet \
 MEGATRON_LM_PATH=/path/to/Megatron-LM \
 NDEVICES_PER_NODE=4 \
 TOTAL_TRAINING_STEPS=100 \
-bash /path/to/verl-ascend-recipe/router_replay/run_qwen3_30b_a3b_megatron_npu.sh
+bash /path/to/verl-ascend-recipe/grpo/router_replay/run_qwen3_30b_a3b_megatron_npu.sh
 ```
 
 脚本默认将 console 日志写入 `$PWD/logs/qwen3_30b_a3b_r3_megatron_vllm_ascend_<timestamp>.log`，额外参数会继续作为 Hydra overrides 传给 `verl.trainer.main_ppo`。
@@ -130,7 +130,7 @@ bash /path/to/verl-ascend-recipe/router_replay/run_qwen3_30b_a3b_megatron_npu.sh
 SAVE_FREQ=100 \
 CHECKPOINT_DIR=/path/to/checkpoints/qwen3_30b_a3b_r3 \
 RESUME_MODE=auto \
-bash /path/to/verl-ascend-recipe/router_replay/run_qwen3_30b_a3b_megatron_npu.sh
+bash /path/to/verl-ascend-recipe/grpo/router_replay/run_qwen3_30b_a3b_megatron_npu.sh
 ```
 
 ## 5. 100-step 长跑结果
